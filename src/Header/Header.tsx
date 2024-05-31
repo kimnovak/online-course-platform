@@ -10,6 +10,7 @@ import {
   MagnifyingGlassIcon,
   UserIcon,
 } from '@heroicons/react/24/solid';
+import logo from '../assets/logo.webp';
 
 export const Header = () => {
   return (
@@ -17,8 +18,7 @@ export const Header = () => {
       <div className="container mx-auto flex justify-between items-center p-4">
         {/* Logo */}
         <div className="flex items-center">
-          <img src="logo.png" alt="Logo" className="h-10 mr-4" />
-          <span className="font-bold text-xl">CourseApp</span>
+          <img src={logo} alt="Logo" className="h-10 mr-4" />
         </div>
 
         {/* Categories Dropdown */}
