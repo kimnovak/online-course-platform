@@ -11,19 +11,19 @@ const trendingCourses: Course[] = [
     title: 'React for Beginners',
     description:
       'Learn the basics of React.js and build your first application.',
-    image: 'https://via.placeholder.com/300',
+    image: '',
   },
   {
     title: 'Advanced TypeScript',
     description:
       'Deep dive into TypeScript with advanced concepts and techniques.',
-    image: 'https://via.placeholder.com/300',
+    image: '',
   },
   {
     title: 'NextJS Mastery',
     description:
       'Master NextJS and build server-side rendered React applications.',
-    image: 'https://via.placeholder.com/300',
+    image: '',
   },
   // Add more courses as needed
 ];

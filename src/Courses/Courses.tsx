@@ -13,21 +13,21 @@ const initialCourses: Course[] = [
     title: 'React for Beginners',
     description:
       'Learn the basics of React.js and build your first application.',
-    image: 'https://via.placeholder.com/300',
+    image: '',
   },
   {
     id: 2,
     title: 'Advanced TypeScript',
     description:
       'Deep dive into TypeScript with advanced concepts and techniques.',
-    image: 'https://via.placeholder.com/300',
+    image: '',
   },
   {
     id: 3,
     title: 'NextJS Mastery',
     description:
       'Master NextJS and build server-side rendered React applications.',
-    image: 'https://via.placeholder.com/300',
+    image: '',
   },
   // Add more initial courses as needed
 ];
@@ -38,7 +38,7 @@ const fetchMoreCourses = (startId: number): Course[] => {
     id: startId + index,
     title: `Course ${startId + index}`,
     description: `Description for course ${startId + index}`,
-    image: 'https://via.placeholder.com/300',
+    image: '',
   }));
 };
 
