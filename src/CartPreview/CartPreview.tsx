@@ -4,7 +4,7 @@ import { useCart } from '../useCart';
 import { Link } from '@tanstack/react-router';
 
 export const CartPreview: React.FC = () => {
-  const { cart, removeItem, updateItemQuantity, getCartTotal } = useCart();
+  const { cart, removeItem, getCartTotal } = useCart();
 
   return (
     <div className="container mx-auto p-4">
@@ -22,28 +22,10 @@ export const CartPreview: React.FC = () => {
                 <div>
                   <h2 className="text-lg font-semibold">{item.name}</h2>
                   <p className="text-gray-600">
-                    ${item.price} x {item.quantity}
+                    ${item.price}
                   </p>
                 </div>
                 <div className="flex items-center">
-                  <button
-                    onClick={() =>
-                      updateItemQuantity(item.id, item.quantity - 1)
-                    }
-                    className="px-2 py-1 text-gray-500 hover:text-gray-700"
-                    disabled={item.quantity <= 1}
-                  >
-                    -
-                  </button>
-                  <span className="mx-2">{item.quantity}</span>
-                  <button
-                    onClick={() =>
-                      updateItemQuantity(item.id, item.quantity + 1)
-                    }
-                    className="px-2 py-1 text-gray-500 hover:text-gray-700"
-                  >
-                    +
-                  </button>
                   <button
                     onClick={() => removeItem(item.id)}
                     className="ml-4 px-2 py-1 text-red-500 hover:text-red-700"

@@ -39,25 +39,18 @@ export const useCart = () => {
     setCart(prevCart => prevCart.filter(item => item.id !== itemId));
   };
 
-  const updateItemQuantity = (itemId: number, quantity: number) => {
-    setCart(prevCart =>
-      prevCart.map(item => (item.id === itemId ? { ...item, quantity } : item))
-    );
-  };
-
   const clearCart = () => {
     setCart([]);
   };
 
   const getCartTotal = () => {
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+    return cart.reduce((total, item) => total + item.price, 0);
   };
 
   return {
     cart,
     addItem,
     removeItem,
-    updateItemQuantity,
     clearCart,
     getCartTotal,
   };

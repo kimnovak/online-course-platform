@@ -85,7 +85,7 @@ export const CheckoutPage: React.FC = () => {
             <div className="p-4">
               <label className="block mb-2">
                 <span className="text-gray-700">Pay with Crypto via Helio</span>
-                <HelioCheckout config={helioConfig} />;
+                <HelioCheckout config={helioConfig} />
               </label>
             </div>
           )}
