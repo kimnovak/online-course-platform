@@ -18,10 +18,22 @@ import { Route as IndexImport } from './routes/index'
 
 // Create Virtual Routes
 
+const SignupLazyImport = createFileRoute('/signup')()
+const LoginLazyImport = createFileRoute('/login')()
 const CheckoutLazyImport = createFileRoute('/checkout')()
 const CartLazyImport = createFileRoute('/cart')()
 
 // Create/Update Routes
+
+const SignupLazyRoute = SignupLazyImport.update({
+  path: '/signup',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/signup.lazy').then((d) => d.Route))
+
+const LoginLazyRoute = LoginLazyImport.update({
+  path: '/login',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/login.lazy').then((d) => d.Route))
 
 const CheckoutLazyRoute = CheckoutLazyImport.update({
   path: '/checkout',
@@ -75,6 +87,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CheckoutLazyImport
       parentRoute: typeof rootRoute
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -85,6 +111,8 @@ export const routeTree = rootRoute.addChildren({
   AboutRoute,
   CartLazyRoute,
   CheckoutLazyRoute,
+  LoginLazyRoute,
+  SignupLazyRoute,
 })
 
 /* prettier-ignore-end */
@@ -98,7 +126,9 @@ export const routeTree = rootRoute.addChildren({
         "/",
         "/about",
         "/cart",
-        "/checkout"
+        "/checkout",
+        "/login",
+        "/signup"
       ]
     },
     "/": {
@@ -112,6 +142,12 @@ export const routeTree = rootRoute.addChildren({
     },
     "/checkout": {
       "filePath": "checkout.lazy.tsx"
+    },
+    "/login": {
+      "filePath": "login.lazy.tsx"
+    },
+    "/signup": {
+      "filePath": "signup.lazy.tsx"
     }
   }
 }

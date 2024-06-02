@@ -14,6 +14,7 @@
     "@heliofi/checkout-react": "^1.4.0",
     "@heroicons/react": "^2.1.3",
     "@tanstack/react-router": "^1.34.9",
+    "bcryptjs": "^2.4.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

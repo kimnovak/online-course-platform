@@ -2,6 +2,12 @@ import { factory, primaryKey } from '@mswjs/data';
 import { courses } from './data/courses';
 
 export const db = factory({
+  user: {
+    id: primaryKey(Number),
+    username: String,
+    password: String,
+    email: String,
+  },
   course: {
     id: primaryKey(Number),
     title: String,

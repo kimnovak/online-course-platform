@@ -30,7 +30,7 @@ export const courses: Course[] = [
     title: 'JavaScript Essentials',
     description:
       'A comprehensive guide to JavaScript, covering basics to advanced topics.',
-    image: 'https://via.placeholder.com/300x200.png?text=JavaScript+Essentials',
+    image: '',
     price: 19.99,
   },
   {
@@ -38,7 +38,7 @@ export const courses: Course[] = [
     title: 'CSS for Developers',
     description:
       'Learn how to style your web applications with advanced CSS techniques.',
-    image: 'https://via.placeholder.com/300x200.png?text=CSS+for+Developers',
+    image: '',
     price: 24.99,
   },
   {
@@ -46,7 +46,7 @@ export const courses: Course[] = [
     title: 'Node.js and Express',
     description:
       'Build scalable and efficient backend applications with Node.js and Express.',
-    image: 'https://via.placeholder.com/300x200.png?text=Node.js+and+Express',
+    image: '',
     price: 34.99,
   },
   {
@@ -54,8 +54,7 @@ export const courses: Course[] = [
     title: 'Python for Data Science',
     description:
       'Learn Python programming and its applications in data science.',
-    image:
-      'https://via.placeholder.com/300x200.png?text=Python+for+Data+Science',
+    image: '',
     price: 44.99,
   },
   {
@@ -63,8 +62,7 @@ export const courses: Course[] = [
     title: 'Full-Stack Web Development',
     description:
       'Become a full-stack web developer with this comprehensive course.',
-    image:
-      'https://via.placeholder.com/300x200.png?text=Full-Stack+Web+Development',
+    image: '',
     price: 59.99,
   },
   {
@@ -72,8 +70,7 @@ export const courses: Course[] = [
     title: 'Machine Learning with Python',
     description:
       'Explore machine learning concepts and techniques using Python.',
-    image:
-      'https://via.placeholder.com/300x200.png?text=Machine+Learning+with+Python',
+    image: '',
     price: 49.99,
   },
   {
@@ -81,8 +78,7 @@ export const courses: Course[] = [
     title: 'Introduction to Cloud Computing',
     description:
       'Learn the fundamentals of cloud computing and its various services.',
-    image:
-      'https://via.placeholder.com/300x200.png?text=Introduction+to+Cloud+Computing',
+    image: '',
     price: 39.99,
   },
 ];

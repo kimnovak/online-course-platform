@@ -1,20 +1,18 @@
 import { Button } from '@headlessui/react';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { useCart } from '../useCart';
+import defaultImage from '../assets/default-image.webp';
 
-export const CourseItem = ({ lastCourseElementRef, course }) => {
+export const CourseItem = ({ course }) => {
   const { addItem } = useCart();
   return (
-    <div
-      ref={lastCourseElementRef}
-      className="bg-white rounded-lg shadow-md overflow-hidden relative"
-    >
+    <div className="bg-white rounded-lg shadow-md overflow-hidden relative">
       <Button onClick={() => addItem(course)}>
         <ShoppingCartIcon className="h-8 w-8 p-1 absolute right-0" />
       </Button>
       <img
         className="w-full h-48 object-cover"
-        src={course.image}
+        src={course.image || defaultImage}
         alt={course.title}
       />
       <div className="p-4">
