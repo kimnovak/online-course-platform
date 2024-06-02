@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useCart } from '../useCart';
+import { Link } from '@tanstack/react-router';
 
 export const CartPreview: React.FC = () => {
   const { cart, removeItem, updateItemQuantity, getCartTotal } = useCart();
@@ -57,9 +58,12 @@ export const CartPreview: React.FC = () => {
             <h2 className="text-xl font-semibold">
               Total: ${getCartTotal().toFixed(2)}
             </h2>
-            <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+            <Link
+              to="/checkout"
+              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+            >
               Checkout
-            </button>
+            </Link>
           </div>
         </div>
       )}
