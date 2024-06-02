@@ -1,9 +1,13 @@
-import { Dashboard } from './Dashboard/Dashboard';
+import { Outlet } from '@tanstack/react-router';
+import { Header } from './Header/Header';
 
 function App() {
   return (
     <>
-      <Dashboard />
+      <Header />
+      <main>
+        <Outlet />
+      </main>
     </>
   );
 }

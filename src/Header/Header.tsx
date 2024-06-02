@@ -4,12 +4,15 @@ import {
   MenuItem,
   Transition,
   MenuButton,
+  Button,
 } from '@headlessui/react';
 import {
   ChevronDownIcon,
   MagnifyingGlassIcon,
   UserIcon,
+  ShoppingCartIcon,
 } from '@heroicons/react/24/solid';
+import { Link } from '@tanstack/react-router';
 import logo from '../assets/logo.webp';
 
 export const Header = () => {
@@ -17,9 +20,9 @@ export const Header = () => {
     <header className="bg-white shadow-md">
       <div className="container mx-auto flex justify-between items-center p-4">
         {/* Logo */}
-        <div className="flex items-center">
+        <Link to="/" className="flex items-center">
           <img src={logo} alt="Logo" className="h-10 mr-4" />
-        </div>
+        </Link>
 
         {/* Categories Dropdown */}
         <div className="relative">
@@ -84,10 +87,13 @@ export const Header = () => {
         </div>
 
         {/* My Courses Link */}
-        <a href="#" className="text-gray-700 hover:text-gray-900">
+        <Link to="/about" className="text-gray-700 hover:text-gray-900">
           My Courses
-        </a>
-
+        </Link>
+        {/* Cart */}
+        <Link to="/cart" className="[&.active]:font-bold">
+          <ShoppingCartIcon className="h-8 w-8 p-1" />
+        </Link>
         {/* Avatar Dropdown */}
         <div className="relative">
           <Menu>

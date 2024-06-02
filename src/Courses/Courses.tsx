@@ -1,10 +1,12 @@
 import { useState, useRef, useCallback } from 'react';
+import { CourseItem } from '../CourseItem/CourseItem';
 
 interface Course {
   id: number;
   title: string;
   description: string;
   image: string;
+  price: number;
 }
 
 const initialCourses: Course[] = [
@@ -14,6 +16,7 @@ const initialCourses: Course[] = [
     description:
       'Learn the basics of React.js and build your first application.',
     image: '',
+    price: 50,
   },
   {
     id: 2,
@@ -21,6 +24,7 @@ const initialCourses: Course[] = [
     description:
       'Deep dive into TypeScript with advanced concepts and techniques.',
     image: '',
+    price: 55,
   },
   {
     id: 3,
@@ -28,6 +32,7 @@ const initialCourses: Course[] = [
     description:
       'Master NextJS and build server-side rendered React applications.',
     image: '',
+    price: 5,
   },
   // Add more initial courses as needed
 ];
@@ -39,6 +44,7 @@ const fetchMoreCourses = (startId: number): Course[] => {
     title: `Course ${startId + index}`,
     description: `Description for course ${startId + index}`,
     image: '',
+    price: index * 10,
   }));
 };
 
@@ -69,42 +75,16 @@ export const Courses = () => {
       <h2 className="text-2xl font-bold text-center mb-6">Courses</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {courses.map((course, index) => {
-          if (courses.length === index + 1) {
-            return (
-              <div
-                ref={lastCourseElementRef}
-                key={course.id}
-                className="bg-white rounded-lg shadow-md overflow-hidden"
-              >
-                <img
-                  className="w-full h-48 object-cover"
-                  src={course.image}
-                  alt={course.title}
-                />
-                <div className="p-4">
-                  <h3 className="text-xl font-semibold">{course.title}</h3>
-                  <p className="mt-2 text-gray-600">{course.description}</p>
-                </div>
-              </div>
-            );
-          } else {
-            return (
-              <div
-                key={course.id}
-                className="bg-white rounded-lg shadow-md overflow-hidden"
-              >
-                <img
-                  className="w-full h-48 object-cover"
-                  src={course.image}
-                  alt={course.title}
-                />
-                <div className="p-4">
-                  <h3 className="text-xl font-semibold">{course.title}</h3>
-                  <p className="mt-2 text-gray-600">{course.description}</p>
-                </div>
-              </div>
-            );
-          }
+          const isLastItem = courses.length === index + 1;
+          return (
+            <CourseItem
+              key={course.id}
+              lastCourseElementRef={
+                isLastItem ? lastCourseElementRef : undefined
+              }
+              course={course}
+            />
+          );
         })}
       </div>
       {hasMore && (
