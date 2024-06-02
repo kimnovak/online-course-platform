@@ -1,19 +1,21 @@
-import { http } from 'msw';
+import { HttpResponse, http } from 'msw';
 import bcrypt from 'bcryptjs';
+import { nanoid } from 'nanoid';
 import { db } from '../db';
 
 const SALT_ROUNDS = 10;
 
 export const authHandlers = [
   // Registration handler
-  http.post('/api/register', async (req, res, ctx) => {
-    const { username, password } = req.body;
-
+  http.post('/api/register', async ({ request }) => {
+    const { username, password } = await request.json();
     if (!username || !password) {
-      return res(
-        ctx.status(400),
-        ctx.json({ error: 'Username and password are required.' })
-      );
+      return new HttpResponse('Username and password are required.', {
+        status: 400,
+        headers: {
+          'Content-Type': 'text/plain',
+        },
+      });
     }
 
     const existingUser = db.user.findFirst({
@@ -24,21 +26,27 @@ export const authHandlers = [
       },
     });
     if (existingUser) {
-      return res(
-        ctx.status(400),
-        ctx.json({ error: 'Username already exists.' })
-      );
+      return new HttpResponse('Username already exists..', {
+        status: 400,
+        headers: {
+          'Content-Type': 'text/plain',
+        },
+      });
     }
 
     const salt = await bcrypt.genSalt(SALT_ROUNDS);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const newUser = { id: Date.now(), username, password: hashedPassword };
+    const newUser = { id: nanoid(), username, password: hashedPassword };
     db.user.create(newUser);
-
-    return res(
-      ctx.status(201),
-      ctx.json({ message: 'User registered successfully.' })
+    return new HttpResponse(
+      JSON.stringify({ id: newUser.id, username: newUser.username }),
+      {
+        status: 201,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
     );
   }),
 

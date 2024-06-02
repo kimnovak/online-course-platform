@@ -3,10 +3,9 @@ import { courses } from './data/courses';
 
 export const db = factory({
   user: {
-    id: primaryKey(Number),
+    id: primaryKey(String),
     username: String,
     password: String,
-    email: String,
   },
   course: {
     id: primaryKey(Number),
