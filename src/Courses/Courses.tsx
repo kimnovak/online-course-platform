@@ -1,41 +1,6 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { CourseItem } from '../CourseItem/CourseItem';
-
-interface Course {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  price: number;
-}
-
-const initialCourses: Course[] = [
-  {
-    id: 1,
-    title: 'React for Beginners',
-    description:
-      'Learn the basics of React.js and build your first application.',
-    image: '',
-    price: 50,
-  },
-  {
-    id: 2,
-    title: 'Advanced TypeScript',
-    description:
-      'Deep dive into TypeScript with advanced concepts and techniques.',
-    image: '',
-    price: 55,
-  },
-  {
-    id: 3,
-    title: 'NextJS Mastery',
-    description:
-      'Master NextJS and build server-side rendered React applications.',
-    image: '',
-    price: 5,
-  },
-  // Add more initial courses as needed
-];
+import type { Course } from './types';
 
 const fetchMoreCourses = (startId: number): Course[] => {
   // Simulate fetching more courses from an API or database
@@ -49,9 +14,28 @@ const fetchMoreCourses = (startId: number): Course[] => {
 };
 
 export const Courses = () => {
-  const [courses, setCourses] = useState<Course[]>(initialCourses);
+  const [courses, setCourses] = useState<Course[]>([]);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const observer = useRef<IntersectionObserver | null>(null);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await fetch('/api/courses');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data: Course[] = await response.json();
+        setCourses(data ?? []);
+      } catch (error: any) {
+        // setError(error.message);
+      } finally {
+        // setLoading(false);
+      }
+    };
+
+    fetchCourses();
+  }, []);
 
   const lastCourseElementRef = useCallback(
     (node: HTMLDivElement) => {
