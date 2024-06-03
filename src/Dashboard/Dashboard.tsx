@@ -1,5 +1,5 @@
 import { Courses } from '../Courses/Courses';
-import { HighlightedCourses } from '../HighlightedCourses/HighlightedCourses';
+import { HighlightedCourses } from '../Courses/HighlightedCourses/HighlightedCourses';
 
 export const Dashboard = () => {
   return (
