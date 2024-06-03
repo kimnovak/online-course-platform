@@ -5,6 +5,12 @@ import { db } from '../db';
 
 const SALT_ROUNDS = 10;
 
+export const hashPassword = async (password: string) => {
+  const salt = await bcrypt.genSalt(SALT_ROUNDS);
+  const hashedPassword = await bcrypt.hash(password, salt);
+  return hashedPassword;
+};
+
 export const authHandlers = [
   // Registration handler
   http.post('/api/register', async ({ request }) => {
@@ -34,8 +40,7 @@ export const authHandlers = [
       });
     }
 
-    const salt = await bcrypt.genSalt(SALT_ROUNDS);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const hashedPassword = hashPassword(password);
 
     const newUser = { id: nanoid(), username, password: hashedPassword };
     db.user.create(newUser);
@@ -51,14 +56,16 @@ export const authHandlers = [
   }),
 
   // Login handler
-  http.post('/api/login', async (req, res, ctx) => {
-    const { username, password } = req.body;
+  http.post('/api/login', async ({ request }) => {
+    const { username, password } = await request.json();
 
     if (!username || !password) {
-      return res(
-        ctx.status(400),
-        ctx.json({ error: 'Username and password are required.' })
-      );
+      return new HttpResponse('Username and password are required.', {
+        status: 400,
+        headers: {
+          'Content-Type': 'text/plain',
+        },
+      });
     }
 
     const user = db.user.findFirst({
@@ -69,26 +76,32 @@ export const authHandlers = [
       },
     });
     if (!user) {
-      return res(
-        ctx.status(401),
-        ctx.json({ error: 'Invalid username or password.' })
-      );
+      return new HttpResponse('Invalid username or password.', {
+        status: 401,
+        headers: {
+          'Content-Type': 'text/plain',
+        },
+      });
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
-      return res(
-        ctx.status(401),
-        ctx.json({ error: 'Invalid username or password.' })
-      );
+      return new HttpResponse('Invalid username or password.', {
+        status: 401,
+        headers: {
+          'Content-Type': 'text/plain',
+        },
+      });
     }
 
     // Generate a session token (for demonstration, we'll use a simple token)
     const token = `fake-jwt-token-${Date.now()}`;
 
-    return res(
-      ctx.status(200),
-      ctx.json({ message: 'Login successful.', token })
-    );
+    return new HttpResponse(JSON.stringify({ token }), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   }),
 ];

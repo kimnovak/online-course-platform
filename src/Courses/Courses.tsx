@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { CourseItem } from '../CourseItem/CourseItem';
+import { CourseItem } from './CourseItem/CourseItem';
 import type { Course } from './types';
 
 export const Courses = () => {

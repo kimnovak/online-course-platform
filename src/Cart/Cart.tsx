@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { useCart } from '../useCart';
+import { useCart } from './useCart';
 import { Link } from '@tanstack/react-router';
 
-export const CartPreview: React.FC = () => {
+export const Cart: React.FC = () => {
   const { cart, removeItem, getCartTotal } = useCart();
 
   return (
@@ -21,9 +21,7 @@ export const CartPreview: React.FC = () => {
               >
                 <div>
                   <h2 className="text-lg font-semibold">{item.name}</h2>
-                  <p className="text-gray-600">
-                    ${item.price}
-                  </p>
+                  <p className="text-gray-600">${item.price}</p>
                 </div>
                 <div className="flex items-center">
                   <button

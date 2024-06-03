@@ -84,7 +84,12 @@ export const Header = () => {
             placeholder="Search courses..."
           />
         </div>
-
+        <Link to="/signup" className="text-gray-700 hover:text-gray-900">
+          Sign up
+        </Link>
+        <Link to="/login" className="text-gray-700 hover:text-gray-900">
+          Log in
+        </Link>
         {/* My Courses Link */}
         <Link to="/about" className="text-gray-700 hover:text-gray-900">
           My Courses

@@ -5,6 +5,7 @@ import './index.css';
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen';
+import { AuthProvider } from './Auth/AuthProvider/AuthProvider';
 
 // Create a new router instance
 const router = createRouter({ routeTree });
@@ -34,7 +35,9 @@ enableMocking().then(() => {
     const root = ReactDOM.createRoot(rootElement);
     root.render(
       <React.StrictMode>
-        <RouterProvider router={router} />
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
       </React.StrictMode>
     );
   }
