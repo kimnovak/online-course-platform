@@ -1,7 +1,7 @@
 import { Button } from '@headlessui/react';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { useCart } from '../../Cart/useCart';
-import defaultImage from '../assets/default-image.webp';
+import defaultImage from '../../assets/default-image.webp';
 
 export const CourseItem = ({ course }) => {
   const { addItem } = useCart();

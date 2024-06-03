@@ -5,19 +5,18 @@ import React, {
   ReactNode,
   useEffect,
 } from 'react';
+import * as authApi from '../../api/auth';
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  login: (username: string, password: string) => Promise<void>;
+  login: (loginData: { username: string; password: string }) => Promise<void>;
   logout: () => void;
-  error: string | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     // Check for existing token in local storage on mount
@@ -27,17 +26,9 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     }
   }, []);
 
-  const login = async (username: string, password: string) => {
-    setError(null);
+  const login = async (loginData: { username: string; password: string }) => {
     try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
-
+      const response = await authApi.login(loginData);
       const data = await response.json();
 
       if (!response.ok) {
@@ -47,8 +38,8 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       localStorage.setItem('authToken', data.token);
       setIsAuthenticated(true);
     } catch (err: any) {
-      setError(err.message);
       setIsAuthenticated(false);
+      throw new Error(err.message || 'Something went wrong');
     }
   };
 
@@ -58,7 +49,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, error }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import * as authApi from '../../api/auth';
+import { useAuth } from '../AuthProvider/AuthProvider';
 
 interface LoginFormData {
   username: string;
@@ -14,6 +14,7 @@ export const Login: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const { login } = useAuth();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -29,15 +30,7 @@ export const Login: React.FC = () => {
     setMessage(null);
 
     try {
-      const response = await authApi.login(formData);
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Something went wrong');
-      }
-
-      setMessage(data.message);
+      await login(formData);
       setFormData({ username: '', password: '' });
     } catch (err: any) {
       setError(err.message);
