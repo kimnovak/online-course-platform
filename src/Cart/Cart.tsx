@@ -20,7 +20,7 @@ export const Cart: React.FC = () => {
                 className="flex justify-between items-center border-b border-gray-200 py-2"
               >
                 <div>
-                  <h2 className="text-lg font-semibold">{item.name}</h2>
+                  <h2 className="text-lg font-semibold">{item.title}</h2>
                   <p className="text-gray-600">${item.price}</p>
                 </div>
                 <div className="flex items-center">

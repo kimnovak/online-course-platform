@@ -1,36 +1,22 @@
 import { useState, useEffect } from 'react';
-
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-}
+import { Course } from '../Courses/types';
 
 export const useCart = () => {
-  const [cart, setCart] = useState<CartItem[]>(() => {
-    // Load initial cart state from local storage
+  const [cart, setCart] = useState<Course[]>(() => {
     const savedCart = localStorage.getItem('cart');
     return savedCart ? JSON.parse(savedCart) : [];
   });
 
   useEffect(() => {
-    // Save cart state to local storage whenever it changes
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
-  const addItem = (item: CartItem) => {
+  const addItem = (item: Course) => {
     setCart(prevCart => {
       const existingItem = prevCart.find(cartItem => cartItem.id === item.id);
       if (existingItem) {
-        // If the item already exists in the cart, update its quantity
-        return prevCart.map(cartItem =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
-            : cartItem
-        );
+        return prevCart;
       }
-      // If the item doesn't exist, add it to the cart
       return [...prevCart, item];
     });
   };
