@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import * as authApi from '../../api/auth';
+import { useNavigate } from '@tanstack/react-router';
 
 interface RegisterFormData {
   username: string;
@@ -14,6 +15,7 @@ export const SignUp: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -39,6 +41,7 @@ export const SignUp: React.FC = () => {
 
       setMessage(data.message);
       setFormData({ username: '', password: '' });
+      navigate({ to: '/login' });
     } catch (err: any) {
       setError(err.message);
     } finally {

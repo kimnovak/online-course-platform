@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../AuthProvider/AuthProvider';
+import { useNavigate } from '@tanstack/react-router';
 
 interface LoginFormData {
   username: string;
@@ -15,6 +16,7 @@ export const Login: React.FC = () => {
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -32,6 +34,7 @@ export const Login: React.FC = () => {
     try {
       await login(formData);
       setFormData({ username: '', password: '' });
+      navigate({ to: '/' });
     } catch (err: any) {
       setError(err.message);
     } finally {

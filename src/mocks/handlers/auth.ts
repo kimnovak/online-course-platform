@@ -40,8 +40,7 @@ export const authHandlers = [
       });
     }
 
-    const hashedPassword = hashPassword(password);
-
+    const hashedPassword = await hashPassword(password);
     const newUser = { id: nanoid(), username, password: hashedPassword };
     db.user.create(newUser);
     return new HttpResponse(
@@ -75,6 +74,7 @@ export const authHandlers = [
         },
       },
     });
+    console.log({ user });
     if (!user) {
       return new HttpResponse('Invalid username or password.', {
         status: 401,
@@ -83,8 +83,8 @@ export const authHandlers = [
         },
       });
     }
-
     const passwordMatch = await bcrypt.compare(password, user.password);
+    console.log({passwordMatch})
     if (!passwordMatch) {
       return new HttpResponse('Invalid username or password.', {
         status: 401,
