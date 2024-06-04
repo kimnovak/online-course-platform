@@ -1,13 +1,22 @@
 import { useState } from 'react';
 import { HelioCheckout } from '@heliofi/checkout-react';
+import { useCart } from '../Cart/useCart';
 
 const helioConfig = {
-  paylinkId: '6571e7cd4a2bee8095ee84da',
+  paylinkId: '665e8cf202e1f0586ae135fc',
   amount: '5.99',
-};
+  network: 'test',
+  display: 'button',
+  onSuccess: event => console.log(event),
+  onError: event => console.log(event),
+  onPending: event => console.log(event),
+  onCancel: () => console.log('Cancelled payment'),
+  onStartPayment: () => console.log('Starting payment'),
+} as const;
 
 export const CheckoutPage: React.FC = () => {
   const [openSection, setOpenSection] = useState<string | null>(null);
+  const { getCartTotal } = useCart();
 
   const toggleSection = (section: string) => {
     setOpenSection(openSection === section ? null : section);
@@ -84,8 +93,9 @@ export const CheckoutPage: React.FC = () => {
           {openSection === 'custom' && (
             <div className="p-4">
               <label className="block mb-2">
-                <span className="text-gray-700">Pay with Crypto via Helio</span>
-                <HelioCheckout config={helioConfig} />
+                <HelioCheckout
+                  config={{ ...helioConfig, amount: `${getCartTotal()}` }}
+                />
               </label>
             </div>
           )}

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { CourseItem } from './CourseItem/CourseItem';
 import type { Course } from './types';
+import * as coursesApi from '../api/courses';
 
 export const Courses = () => {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -8,7 +9,7 @@ export const Courses = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch('/api/courses');
+        const response = await coursesApi.getCourses();
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

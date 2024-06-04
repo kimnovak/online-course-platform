@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import * as authApi from '../../api/auth';
 
 interface RegisterFormData {
   username: string;
@@ -28,13 +29,7 @@ export const SignUp: React.FC = () => {
     setMessage(null);
 
     try {
-      const response = await fetch('/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await authApi.register(formData);
 
       const data = await response.json();
 
