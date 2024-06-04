@@ -4,10 +4,14 @@ import {
   MenuItem,
   Transition,
   MenuButton,
+  Button,
 } from '@headlessui/react';
 import { ChevronDownIcon, UserIcon } from '@heroicons/react/24/solid';
+import { useAuth } from '../../Auth/AuthProvider/AuthProvider';
 
 export const UserSettings = () => {
+  const { logout } = useAuth();
+
   return (
     <div className="relative">
       <Menu>
@@ -41,14 +45,14 @@ export const UserSettings = () => {
                 </MenuItem>
                 <MenuItem>
                   {({ active }) => (
-                    <a
-                      href="#"
+                    <Button
+                      onClick={logout}
                       className={`${
                         active ? 'bg-gray-100' : ''
                       } block px-4 py-2 text-sm text-gray-700`}
                     >
                       Logout
-                    </a>
+                    </Button>
                   )}
                 </MenuItem>
               </MenuItems>
