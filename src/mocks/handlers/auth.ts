@@ -5,10 +5,23 @@ import { db } from '../db';
 
 const SALT_ROUNDS = 10;
 
+const createJwtToken = (userId: string): string => {
+  return `mock-token-for-user-${userId}`;
+};
+
 export const hashPassword = async (password: string) => {
   const salt = await bcrypt.genSalt(SALT_ROUNDS);
   const hashedPassword = await bcrypt.hash(password, salt);
   return hashedPassword;
+};
+
+export const mockVerifyToken = (token: string): { userId: string } | null => {
+  const match = token.startsWith('mock-token-for-user');
+  const split = token.split('-');
+  if (match) {
+    return { userId: split[split.length - 1] };
+  }
+  return null;
 };
 
 export const authHandlers = [
@@ -84,7 +97,7 @@ export const authHandlers = [
       });
     }
     const passwordMatch = await bcrypt.compare(password, user.password);
-    console.log({passwordMatch})
+    console.log({ passwordMatch });
     if (!passwordMatch) {
       return new HttpResponse('Invalid username or password.', {
         status: 401,
@@ -94,10 +107,46 @@ export const authHandlers = [
       });
     }
 
-    // Generate a session token (for demonstration, we'll use a simple token)
-    const token = `fake-jwt-token-${Date.now()}`;
+    const token = createJwtToken(user.id);
 
     return new HttpResponse(JSON.stringify({ token }), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }),
+  // Handler for a protected endpoint
+  http.get('/api/me', ({ request }) => {
+    const authHeader = request.headers.get('Authorization');
+    if (!authHeader) {
+      return new HttpResponse(
+        JSON.stringify({ message: 'Authorization header missing' }),
+        {
+          status: 401,
+        }
+      );
+    }
+
+    const token = authHeader.split(' ')[1];
+    const payload = mockVerifyToken(token);
+    console.log({ payload, token });
+    if (!payload) {
+      return new HttpResponse(JSON.stringify({ message: 'Invalid token' }), {
+        status: 401,
+      });
+    }
+
+    const user = db.user.findFirst({
+      where: { id: { equals: payload.userId } },
+    });
+    if (!user) {
+      return new HttpResponse(JSON.stringify({ message: 'Invalid token' }), {
+        status: 401,
+      });
+    }
+    const { password, ...userData } = user ?? {};
+    return new HttpResponse(JSON.stringify({ user: userData }), {
       status: 200,
       headers: {
         'Content-Type': 'application/json',

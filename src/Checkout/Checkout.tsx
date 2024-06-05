@@ -1,22 +1,13 @@
 import { useState } from 'react';
-import { HelioCheckout } from '@heliofi/checkout-react';
 import { useCart } from '../Cart/useCart';
-
-const helioConfig = {
-  paylinkId: '665e8cf202e1f0586ae135fc',
-  amount: '5.99',
-  network: 'test',
-  display: 'button',
-  onSuccess: event => console.log(event),
-  onError: event => console.log(event),
-  onPending: event => console.log(event),
-  onCancel: () => console.log('Cancelled payment'),
-  onStartPayment: () => console.log('Starting payment'),
-} as const;
+import { CardPaymentForm } from './CardPayment/CardPayment';
+import { HelioPayment } from './HelioPayment/HelioPayment';
 
 export const CheckoutPage: React.FC = () => {
-  const [openSection, setOpenSection] = useState<string | null>(null);
+  const [openSection, setOpenSection] = useState<string | null>('card');
   const { getCartTotal } = useCart();
+
+  const total = getCartTotal();
 
   const toggleSection = (section: string) => {
     setOpenSection(openSection === section ? null : section);
@@ -38,45 +29,7 @@ export const CheckoutPage: React.FC = () => {
           </button>
           {openSection === 'card' && (
             <div className="p-4">
-              <label className="block mb-2">
-                <span className="text-gray-700">Card Number</span>
-                <input
-                  type="text"
-                  className="block w-full mt-1 border-gray-300 rounded-md shadow-sm"
-                />
-              </label>
-              <label className="block mb-2">
-                <span className="text-gray-700">Expiry Date</span>
-                <input
-                  type="text"
-                  className="block w-full mt-1 border-gray-300 rounded-md shadow-sm"
-                />
-              </label>
-              <label className="block mb-2">
-                <span className="text-gray-700">CVC</span>
-                <input
-                  type="text"
-                  className="block w-full mt-1 border-gray-300 rounded-md shadow-sm"
-                />
-              </label>
-            </div>
-          )}
-        </div>
-        <div>
-          <button
-            onClick={() => toggleSection('paypal')}
-            className="w-full text-left focus:outline-none"
-          >
-            <div className="flex justify-between items-center p-4 border-b">
-              <h2 className="text-lg font-semibold">Pay with PayPal</h2>
-              <span>{openSection === 'paypal' ? '-' : '+'}</span>
-            </div>
-          </button>
-          {openSection === 'paypal' && (
-            <div className="p-4">
-              <p className="text-gray-700">
-                You will be redirected to PayPal to complete the payment.
-              </p>
+              <CardPaymentForm amount={total} />
             </div>
           )}
         </div>
@@ -92,18 +45,11 @@ export const CheckoutPage: React.FC = () => {
           </button>
           {openSection === 'custom' && (
             <div className="p-4">
-              <label className="block mb-2">
-                <HelioCheckout
-                  config={{ ...helioConfig, amount: `${getCartTotal()}` }}
-                />
-              </label>
+              <HelioPayment amount={total} />
             </div>
           )}
         </div>
       </div>
-      <button className="mt-6 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-        Complete Purchase
-      </button>
     </div>
   );
 };

@@ -17,6 +17,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [currentUser, setCurrentUser] = useState();
 
   useEffect(() => {
     // Check for existing token in local storage on mount
@@ -25,6 +26,28 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       setIsAuthenticated(true);
     }
   }, []);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      return;
+    }
+    getCurrentUser();
+  }, [isAuthenticated]);
+
+  const getCurrentUser = async () => {
+    try {
+      const response = await authApi.getCurrentUser();
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Something went wrong');
+      }
+
+      setCurrentUser(data.user);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const login = async (loginData: { username: string; password: string }) => {
     try {
