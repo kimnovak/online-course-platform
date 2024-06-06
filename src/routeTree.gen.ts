@@ -17,6 +17,7 @@ import { Route as SignupImport } from './routes/signup'
 import { Route as LoginImport } from './routes/login'
 import { Route as EnrollmentsImport } from './routes/enrollments'
 import { Route as IndexImport } from './routes/index'
+import { Route as CoursesCourseIdImport } from './routes/courses_.$courseId'
 
 // Create Virtual Routes
 
@@ -52,6 +53,11 @@ const EnrollmentsRoute = EnrollmentsImport.update({
 
 const IndexRoute = IndexImport.update({
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CoursesCourseIdRoute = CoursesCourseIdImport.update({
+  path: '/courses/$courseId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -101,6 +107,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CheckoutLazyImport
       parentRoute: typeof rootRoute
     }
+    '/courses/$courseId': {
+      id: '/courses/$courseId'
+      path: '/courses/$courseId'
+      fullPath: '/courses/$courseId'
+      preLoaderRoute: typeof CoursesCourseIdImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -113,6 +126,7 @@ export const routeTree = rootRoute.addChildren({
   SignupRoute,
   CartLazyRoute,
   CheckoutLazyRoute,
+  CoursesCourseIdRoute,
 })
 
 /* prettier-ignore-end */
@@ -128,7 +142,8 @@ export const routeTree = rootRoute.addChildren({
         "/login",
         "/signup",
         "/cart",
-        "/checkout"
+        "/checkout",
+        "/courses/$courseId"
       ]
     },
     "/": {
@@ -148,6 +163,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/checkout": {
       "filePath": "checkout.lazy.tsx"
+    },
+    "/courses/$courseId": {
+      "filePath": "courses_.$courseId.tsx"
     }
   }
 }

@@ -33,23 +33,11 @@ export const UserSettings = () => {
               <MenuItems className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                 <MenuItem>
                   {({ active }) => (
-                    <a
-                      href="#"
-                      className={`${
-                        active ? 'bg-gray-100' : ''
-                      } block px-4 py-2 text-sm text-gray-700`}
-                    >
-                      Account Settings
-                    </a>
-                  )}
-                </MenuItem>
-                <MenuItem>
-                  {({ active }) => (
                     <Button
                       onClick={logout}
                       className={`${
                         active ? 'bg-gray-100' : ''
-                      } block px-4 py-2 text-sm text-gray-700`}
+                      } block px-4 py-2 text-sm text-gray-700 w-48`}
                     >
                       Logout
                     </Button>

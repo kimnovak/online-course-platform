@@ -21,7 +21,7 @@ export const Header = () => {
           <>
             <Link
               to="/enrollments"
-              className="text-gray-700 hover:text-gray-900"
+              className="text-gray-700 hover:text-gray-900 mr-4"
             >
               My Courses
             </Link>
@@ -32,7 +32,7 @@ export const Header = () => {
           </>
         ) : (
           <>
-            <Link to="/signup" className="text-gray-700 hover:text-gray-900">
+            <Link to="/signup" className="text-gray-700 hover:text-gray-900 mr-4">
               Sign up
             </Link>
             <Link to="/login" className="text-gray-700 hover:text-gray-900">
