@@ -6,9 +6,17 @@ import React, {
   useEffect,
 } from 'react';
 import * as authApi from '../../api/auth';
+import { Course } from '../../Courses/types';
+
+type User = {
+  id: string;
+  username: string;
+  courses: Course[];
+};
 
 interface AuthContextType {
   isAuthenticated: boolean;
+  currentUser?: User;
   login: (loginData: { username: string; password: string }) => Promise<void>;
   logout: () => void;
 }
@@ -20,7 +28,6 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
 
   useEffect(() => {
-    // Check for existing token in local storage on mount
     const token = localStorage.getItem('authToken');
     if (token) {
       setIsAuthenticated(true);
@@ -72,7 +79,9 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, currentUser, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

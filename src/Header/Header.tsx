@@ -19,7 +19,10 @@ export const Header = () => {
         <Search />
         {isAuthenticated ? (
           <>
-            <Link to="/about" className="text-gray-700 hover:text-gray-900">
+            <Link
+              to="/enrollments"
+              className="text-gray-700 hover:text-gray-900"
+            >
               My Courses
             </Link>
             <Link to="/cart" className="[&.active]:font-bold">

@@ -1,29 +1,18 @@
-import { useState, useEffect } from 'react';
 import { CourseItem } from './CourseItem/CourseItem';
-import type { Course } from './types';
-import * as coursesApi from '../api/courses';
+import { useCourses } from './CoursesProvider/CoursesProvider';
 
 export const Courses = () => {
-  const [courses, setCourses] = useState<Course[]>([]);
+  const { courses, isLoading } = useCourses();
 
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const response = await coursesApi.getCourses();
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data: Course[] = await response.json();
-        setCourses(data ?? []);
-      } catch (error: any) {
-        // setError(error.message);
-      } finally {
-        // setLoading(false);
-      }
-    };
-
-    fetchCourses();
-  }, []);
+  if (isLoading) {
+    return (
+      <div className="container mx-auto my-8">
+        <h2 className="text-2xl font-bold text-center mb-6">
+          Loading courses...
+        </h2>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto my-8">

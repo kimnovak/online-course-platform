@@ -6,9 +6,10 @@ import './index.css';
 // Import the generated route tree
 import { routeTree } from './routeTree.gen';
 import { AuthProvider, useAuth } from './Auth/AuthProvider/AuthProvider';
+import { CoursesProvider } from './Courses/CoursesProvider/CoursesProvider';
 
 // Create a new router instance
-const router = createRouter({ routeTree, context: { auth: null } });
+const router = createRouter({ routeTree, context: { auth: undefined } });
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
@@ -41,7 +42,9 @@ enableMocking().then(() => {
     root.render(
       <React.StrictMode>
         <AuthProvider>
-          <RouterProviderWrapper />
+          <CoursesProvider>
+            <RouterProviderWrapper />
+          </CoursesProvider>
         </AuthProvider>
       </React.StrictMode>
     );

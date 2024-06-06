@@ -15,7 +15,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as SignupImport } from './routes/signup'
 import { Route as LoginImport } from './routes/login'
-import { Route as AboutImport } from './routes/about'
+import { Route as EnrollmentsImport } from './routes/enrollments'
 import { Route as IndexImport } from './routes/index'
 
 // Create Virtual Routes
@@ -45,8 +45,8 @@ const LoginRoute = LoginImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AboutRoute = AboutImport.update({
-  path: '/about',
+const EnrollmentsRoute = EnrollmentsImport.update({
+  path: '/enrollments',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -66,11 +66,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutImport
+    '/enrollments': {
+      id: '/enrollments'
+      path: '/enrollments'
+      fullPath: '/enrollments'
+      preLoaderRoute: typeof EnrollmentsImport
       parentRoute: typeof rootRoute
     }
     '/login': {
@@ -108,7 +108,7 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
-  AboutRoute,
+  EnrollmentsRoute,
   LoginRoute,
   SignupRoute,
   CartLazyRoute,
@@ -124,7 +124,7 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/about",
+        "/enrollments",
         "/login",
         "/signup",
         "/cart",
@@ -134,8 +134,8 @@ export const routeTree = rootRoute.addChildren({
     "/": {
       "filePath": "index.tsx"
     },
-    "/about": {
-      "filePath": "about.tsx"
+    "/enrollments": {
+      "filePath": "enrollments.tsx"
     },
     "/login": {
       "filePath": "login.tsx"
