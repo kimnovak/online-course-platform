@@ -29,6 +29,10 @@ export const useCart = () => {
     setCart([]);
   };
 
+  const isItemInCart = (itemId: number) => {
+    return cart.find(({ id }) => itemId === id);
+  };
+
   const getCartTotal = () => {
     return cart.reduce((total, item) => total + item.price, 0);
   };
@@ -36,8 +40,9 @@ export const useCart = () => {
   return {
     cart,
     addItem,
-    removeItem,
     clearCart,
     getCartTotal,
+    isItemInCart,
+    removeItem,
   };
 };

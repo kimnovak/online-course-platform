@@ -1,16 +1,13 @@
-import { Button } from '@headlessui/react';
-import { ShoppingCartIcon } from '@heroicons/react/24/outline';
-import { useCart } from '../../Cart/useCart';
-import defaultImage from '../../assets/default-image.webp';
 import { Link } from '@tanstack/react-router';
+import defaultImage from '../../assets/default-image.webp';
 import { Course } from '../types';
+import { CourseItemCTAs } from './CourseItemCTA';
 
 type CourseItemProps = {
   course: Course;
 };
 
 export const CourseItem: React.FC<CourseItemProps> = ({ course }) => {
-  const { addItem } = useCart();
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden relative">
       <Link to={`/courses/${course.id}`}>
@@ -25,15 +22,7 @@ export const CourseItem: React.FC<CourseItemProps> = ({ course }) => {
         </div>
       </Link>
       <div className="p-4">
-        <Button
-          onClick={() => addItem(course)}
-          className="bg-blue-500 w-full relative p-2 text-white"
-        >
-          <div className="flex items-center justify-center">
-            <ShoppingCartIcon className="h-8 w-8 p-1" />
-            <span>Add to Cart</span>
-          </div>
-        </Button>
+        <CourseItemCTAs course={course} />
       </div>
     </div>
   );
