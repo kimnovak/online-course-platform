@@ -1,9 +1,9 @@
 import { Button } from '@headlessui/react';
 import { ShoppingCartIcon, EyeIcon } from '@heroicons/react/24/outline';
-import { useCart } from '../../Cart/useCart';
 import { Course } from '../types';
 import { useEnrollments } from '../../Enrollments/useEnrollments';
 import { Link } from '@tanstack/react-router';
+import { useCart } from '../../Cart/CartProvider/CartProvider';
 
 type CourseItemCTAsProps = {
   course: Course;
@@ -38,7 +38,7 @@ export const CourseItemCTAs: React.FC<CourseItemCTAsProps> = ({ course }) => {
   ) : (
     <Button
       onClick={() => addItem(course)}
-      className="bg-blue-500 w-full relative p-2 text-white"
+      className="bg-blue-500 border solid w-full relative p-2 text-white"
     >
       <div className="flex items-center justify-center">
         <ShoppingCartIcon className="h-8 w-8 p-1 flex flex-shrink-0" />

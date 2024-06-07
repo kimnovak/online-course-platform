@@ -1,14 +1,9 @@
 import { useParams } from '@tanstack/react-router';
-import { Course } from '../types';
 import { useCourses } from '../CoursesProvider/CoursesProvider';
 import defaultImage from '../../assets/default-image.webp';
 import { CourseItemCTAs } from '../CourseItemCTAs/CourseItemCTA';
 
-interface CourseDetailsProps {
-  course: Course;
-}
-
-export const CourseDetails: React.FC<CourseDetailsProps> = () => {
+export const CourseDetails: React.FC = () => {
   const params = useParams({ from: '/courses/$courseId' });
   const { getCourseById } = useCourses();
   const course = getCourseById(Number(params.courseId));

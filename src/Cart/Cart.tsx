@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { useCart } from './useCart';
 import { Link } from '@tanstack/react-router';
+import { useCart } from './CartProvider/CartProvider';
 
 export const Cart: React.FC = () => {
   const { cart, removeItem, getCartTotal } = useCart();

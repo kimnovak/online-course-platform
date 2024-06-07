@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { useCart } from '../Cart/useCart';
 import { CardPaymentForm } from './CardPayment/CardPayment';
 import { HelioPayment } from './HelioPayment/HelioPayment';
+import { useCart } from '../Cart/CartProvider/CartProvider';
 
 export const CheckoutPage: React.FC = () => {
   const [openSection, setOpenSection] = useState<string | null>('card');
