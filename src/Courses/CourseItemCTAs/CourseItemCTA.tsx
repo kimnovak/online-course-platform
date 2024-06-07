@@ -19,8 +19,8 @@ export const CourseItemCTAs: React.FC<CourseItemCTAsProps> = ({ course }) => {
         to={`/courses/${course.id}`}
         className="border solid w-full relative p-2 text-black w-full flex items-center justify-center"
       >
-        <EyeIcon className="h-8 w-8 p-1" />
-        <span>Watch the course</span>
+        <EyeIcon className="h-8 w-8 p-1 flex flex-shrink-0" />
+        <span className="truncate">Watch the course</span>
       </Link>
     );
   }
@@ -31,8 +31,8 @@ export const CourseItemCTAs: React.FC<CourseItemCTAsProps> = ({ course }) => {
       className="border solid w-full relative p-2 text-black"
     >
       <div className="flex items-center justify-center">
-        <ShoppingCartIcon className="h-8 w-8 p-1" />
-        <span>Remove from Cart</span>
+        <ShoppingCartIcon className="h-8 w-8 p-1 flex flex-shrink-0" />
+        <span className="truncate">Remove from Cart</span>
       </div>
     </Button>
   ) : (
@@ -41,8 +41,8 @@ export const CourseItemCTAs: React.FC<CourseItemCTAsProps> = ({ course }) => {
       className="bg-blue-500 w-full relative p-2 text-white"
     >
       <div className="flex items-center justify-center">
-        <ShoppingCartIcon className="h-8 w-8 p-1" />
-        <span>Add to Cart</span>
+        <ShoppingCartIcon className="h-8 w-8 p-1 flex flex-shrink-0" />
+        <span className="truncate">Add to Cart</span>
       </div>
     </Button>
   );

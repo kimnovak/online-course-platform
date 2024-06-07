@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router';
 import defaultImage from '../../assets/default-image.webp';
 import { Course } from '../types';
-import { CourseItemCTAs } from './CourseItemCTA';
+import { CourseItemCTAs } from '../CourseItemCTAs/CourseItemCTA';
 
 type CourseItemProps = {
   course: Course;
@@ -16,9 +16,11 @@ export const CourseItem: React.FC<CourseItemProps> = ({ course }) => {
           src={course.image || defaultImage}
           alt={course.title}
         />
-        <div className="p-4">
-          <h3 className="text-xl font-semibold">{course.title}</h3>
-          <p className="mt-2 text-gray-600">{course.description}</p>
+        <div className="p-4 min-h-[150px] max-h-[150px]">
+          <h3 className="text-xl font-semibold truncate">{course.title}</h3>
+          <p className="mt-2 text-gray-600 flex overflow-hidden max-h-[100px]">
+            {course.description}
+          </p>
         </div>
       </Link>
       <div className="p-4">

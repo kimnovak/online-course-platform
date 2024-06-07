@@ -24,9 +24,13 @@ export const Enrollments: React.FC = () => {
                   alt={course.title}
                   className="w-full h-48 object-cover"
                 />
-                <div className="p-4">
-                  <h2 className="text-lg font-semibold">{course.title}</h2>
-                  <p className="text-gray-800 mt-2">{course.description}</p>
+                <div className="p-4 min-h-[150px] max-h-[150px]">
+                  <h3 className="text-xl font-semibold truncate">
+                    {course.title}
+                  </h3>
+                  <p className="mt-2 text-gray-600 flex overflow-hidden max-h-[100px]">
+                    {course.description}
+                  </p>
                 </div>
               </div>
             </Link>
