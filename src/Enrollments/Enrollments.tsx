@@ -1,5 +1,6 @@
 import React from 'react';
 import { useEnrollments } from './useEnrollments';
+import defaultImage from '../assets/default-image.webp';
 
 export const Enrollments: React.FC = () => {
   const { purchasedCourses } = useEnrollments();
@@ -16,7 +17,7 @@ export const Enrollments: React.FC = () => {
               className="border border-gray-300 rounded-lg overflow-hidden shadow-lg"
             >
               <img
-                src={course.image}
+                src={course.image || defaultImage}
                 alt={course.title}
                 className="w-full h-48 object-cover"
               />

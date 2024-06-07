@@ -17,7 +17,7 @@ export const hashPassword = async (password: string) => {
 
 export const mockVerifyToken = (token: string): { userId: string } | null => {
   const match = token.startsWith('mock-token-for-user');
-  const split = token.split('-');
+  const split = token.split('mock-token-for-user-');
   if (match) {
     return { userId: split[split.length - 1] };
   }

@@ -1,6 +1,7 @@
 import { useParams } from '@tanstack/react-router';
 import { Course } from '../types';
 import { useCourses } from '../CoursesProvider/CoursesProvider';
+import defaultImage from '../../assets/default-image.webp';
 
 interface CourseDetailsProps {
   course: Course;
@@ -8,8 +9,8 @@ interface CourseDetailsProps {
 
 export const CourseDetails: React.FC<CourseDetailsProps> = () => {
   const params = useParams({ from: '/courses/$courseId' });
-  const { courses } = useCourses();
-  const course = courses.find(({ id }) => `${id}` === params.courseId);
+  const { getCourseById } = useCourses();
+  const course = getCourseById(Number(params.courseId));
 
   if (!course) {
     return (
@@ -24,7 +25,7 @@ export const CourseDetails: React.FC<CourseDetailsProps> = () => {
     <div className="max-w-4xl mx-auto p-4">
       <div className="bg-white shadow-lg rounded-lg overflow-hidden">
         <img
-          src={course.image}
+          src={course.image || defaultImage}
           alt={course.title}
           className="w-full h-64 object-cover"
         />

@@ -11,6 +11,7 @@ import * as coursesApi from '../../api/courses';
 interface CoursesContextType {
   courses: Course[];
   isLoading: boolean;
+  getCourseById: (courseId: number) => Course | undefined;
 }
 
 const CoursesContext = createContext<CoursesContextType | undefined>(undefined);
@@ -39,8 +40,11 @@ const CoursesProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     fetchCourses();
   }, []);
 
+  const getCourseById = (courseId: number) =>
+    courses.find(({ id }) => courseId === id);
+
   return (
-    <CoursesContext.Provider value={{ courses, isLoading }}>
+    <CoursesContext.Provider value={{ courses, isLoading, getCourseById }}>
       {children}
     </CoursesContext.Provider>
   );
