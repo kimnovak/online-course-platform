@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import * as authApi from '../../api/auth';
 import { useNavigate } from '@tanstack/react-router';
+import * as authApi from '../../api/auth';
 
 interface RegisterFormData {
   username: string;

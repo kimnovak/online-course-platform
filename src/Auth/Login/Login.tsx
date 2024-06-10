@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useAuth } from '../AuthProvider/AuthProvider';
 import { useNavigate } from '@tanstack/react-router';
+import { useAuth } from '../AuthProvider/AuthProvider';
 
 interface LoginFormData {
   username: string;

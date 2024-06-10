@@ -1,7 +1,7 @@
 import { Outlet } from '@tanstack/react-router';
 import { Header } from './Header/Header';
 
-function App() {
+export const App = () => {
   return (
     <>
       <Header />
@@ -10,6 +10,4 @@ function App() {
       </main>
     </>
   );
-}
-
-export default App;
+};

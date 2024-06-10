@@ -17,7 +17,7 @@ export const UserSettings = () => {
       <Menu>
         {({ open }) => (
           <>
-            <MenuButton className="flex items-center ml-4 text-gray-700 hover:text-gray-900">
+            <MenuButton className="flex items-center text-gray-700 hover:text-gray-900">
               <UserIcon className="h-8 w-8 rounded-full bg-gray-200 p-1" />
               <ChevronDownIcon className="h-5 w-5 ml-1" />
             </MenuButton>

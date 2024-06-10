@@ -1,18 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createRouter } from '@tanstack/react-router';
-import './index.css';
-
-// Import the generated route tree
 import { routeTree } from './routeTree.gen';
 import { AuthProvider, useAuth } from './Auth/AuthProvider/AuthProvider';
 import { CoursesProvider } from './Courses/CoursesProvider/CoursesProvider';
 import { CartProvider } from './Cart/CartProvider/CartProvider';
 
-// Create a new router instance
+import './index.css';
+
 const router = createRouter({ routeTree, context: { auth: undefined } });
 
-// Register the router instance for type safety
 declare module '@tanstack/react-router' {
   interface Register {
     router: typeof router;
