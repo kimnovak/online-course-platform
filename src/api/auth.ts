@@ -1,5 +1,3 @@
-import { apiClient } from './client';
-
 type LoginRequestBody = {
   username: string;
   password: string;
@@ -27,5 +25,3 @@ export const register = (data: RegisterRequestBody) =>
     },
     body: JSON.stringify(data),
   });
-
-export const getCurrentUser = () => apiClient('/api/me');

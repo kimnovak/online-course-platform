@@ -7,6 +7,7 @@ import { CoursesProvider } from './Courses/CoursesProvider/CoursesProvider';
 import { CartProvider } from './Cart/CartProvider/CartProvider';
 
 import './index.css';
+import { UserProvider } from './User/UserProvider/UserProvider';
 
 const router = createRouter({ routeTree, context: { auth: undefined } });
 
@@ -40,11 +41,13 @@ enableMocking().then(() => {
     root.render(
       <React.StrictMode>
         <AuthProvider>
-          <CartProvider>
-            <CoursesProvider>
-              <RouterProviderWrapper />
-            </CoursesProvider>
-          </CartProvider>
+          <UserProvider>
+            <CartProvider>
+              <CoursesProvider>
+                <RouterProviderWrapper />
+              </CoursesProvider>
+            </CartProvider>
+          </UserProvider>
         </AuthProvider>
       </React.StrictMode>
     );

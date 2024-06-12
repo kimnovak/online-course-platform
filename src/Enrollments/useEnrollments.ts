@@ -1,7 +1,7 @@
-import { useAuth } from '../Auth/AuthProvider/AuthProvider';
+import { useUser } from '../User/UserProvider/UserProvider';
 
 export const useEnrollments = () => {
-  const { currentUser } = useAuth();
+  const { currentUser } = useUser();
   const purchasedCourses = currentUser?.courses ?? [];
   const isCoursePurchased = (courseId: number) => {
     return purchasedCourses.find(({ id }) => courseId === id);
