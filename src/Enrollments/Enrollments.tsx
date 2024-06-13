@@ -14,11 +14,8 @@ export const Enrollments: React.FC = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {purchasedCourses.map(course => (
-            <Link to={`/courses/${course.id}`}>
-              <div
-                key={course.id}
-                className="border border-gray-300 rounded-lg overflow-hidden shadow-lg"
-              >
+            <Link to={`/courses/${course.id}`} key={course.id}>
+              <div className="border border-gray-300 rounded-lg overflow-hidden shadow-lg">
                 <img
                   src={course.image || defaultImage}
                   alt={course.title}
